@@ -1,17 +1,21 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { Typography, InputNumber, Button } from 'antd'
 import Main from './Main'
 const { Text } = Typography
 
-const apiUrl = "http://localhost:8888/server/4/5?narg1=6&narg2=4"
+// const apiUrl = "julia/packages/HTTP/BOJmV/src/Servers.jl:273"
 
-async function getSim() {
-  await fetch(`${apiUrl}/params`).then((response) => {
-    return response.json();
-  })
-}
+// async function getSim() {
+//   await fetch(`${apiUrl}`).then((response) => {
+//     if (response) {
+//       return response.json();
+//     }
+//   })
+// }
+// function trees() {
+//   return <Text>Trees</Text>
+// }
 function App() {
   return (
     <div className="App">

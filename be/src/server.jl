@@ -23,14 +23,14 @@ function params(req::HTTP.Request)
 end
 
 
-run_http(apiclnt, 8888, auth_preproc)
+
+#run_http(apiclnt, 8888, auth_preproc)
 endpoints = [
     (simulate, "GET", "/simulate"),
     (params, "GET", "/params")
 ]
 
 r = Joseki.router(endpoints)
-velocityPlot()
 
  haskey(ENV, "PORT") ? port = parse(Int32, ENV["PORT"]) : port = 8000
 println("trees")
