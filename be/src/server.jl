@@ -21,7 +21,7 @@ process(
 
 function velocityPlot()
     x = 1:10; y = rand(10); # These are the plotting data
-    return plot(x, y)
+    return x,y
 end
 
 function auth_preproc(req::HTTP.Request)
@@ -34,7 +34,14 @@ run_http(apiclnt, 8888, auth_preproc)
 # r = Joseki.router(endpoints)
 velocityPlot()
 
+<<<<<<< Updated upstream
 
 # haskey(ENV, "PORT") ? port = parse(Int32, ENV["PORT"]) : port = 8000
 
 # HTTP.serve(r, "0.0.0.0", port; verbose=false)
+=======
+ haskey(ENV, "PORT") ? port = parse(Int32, ENV["PORT"]) : port = 8000
+println("trees")
+HTTP.serve(r, "0.0.0.0", port; verbose=false)#Belive this creates n active API, shuts down when program does
+println("here")
+>>>>>>> Stashed changes

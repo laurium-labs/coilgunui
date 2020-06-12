@@ -2,7 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { Typography, InputNumber, Button } from 'antd'
-
+import Main from './Main'
 const { Text } = Typography
 
 const apiUrl = "http://localhost:8888/server/4/5?narg1=6&narg2=4"
@@ -20,9 +20,7 @@ function App() {
           <div>
             <Text>Number of coils</Text>
             <InputNumber></InputNumber>
-            <Button title="Graph" onClick={() => {
-              getSim()
-            }} />
+            {Main()}
           </div>
         </header>
       </div>
