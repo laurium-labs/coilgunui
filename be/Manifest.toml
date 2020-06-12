@@ -23,6 +23,9 @@ uuid = "ade2ca70-3891-5945-98fb-dc099432e06a"
 deps = ["Random", "Serialization", "Sockets"]
 uuid = "8ba89e20-285c-5b6f-9357-94700520ee1b"
 
+[[FileWatching]]
+uuid = "7b1f6079-737a-58dc-b8bc-7a2ca5c1b5ee"
+
 [[HTTP]]
 deps = ["Base64", "Dates", "IniFile", "MbedTLS", "Sockets"]
 git-tree-sha1 = "ec87d5e2acbe1693789efbbe14f5ea7525758f71"
@@ -45,11 +48,23 @@ git-tree-sha1 = "b34d7cef7b337321e97d22242c3c2b91f476748e"
 uuid = "682c06a0-de6a-54ab-a142-c8b1cf79cde6"
 version = "0.21.0"
 
+[[Joseki]]
+deps = ["Dates", "HTTP", "JSON", "Sockets", "Test"]
+git-tree-sha1 = "c97887cf3d9b6e29ebb10902f0c8a77de226fd56"
+uuid = "b588beb9-536a-5a7d-a241-c127386fde06"
+version = "0.2.1"
+
 [[JuliaFormatter]]
 deps = ["CSTParser", "DataStructures", "Pkg", "Test", "Tokenize"]
 git-tree-sha1 = "f21ac3ef74998f25cd7ef4122fa1c37d7cfc6797"
 uuid = "98e50ef6-434e-11e9-1051-2b60c6c9e899"
 version = "0.6.2"
+
+[[JuliaWebAPI]]
+deps = ["Base64", "HTTP", "JSON", "Serialization", "Sockets", "ZMQ"]
+git-tree-sha1 = "655687216c10884d8e792fb05cf28129ace6f11a"
+uuid = "480116ec-64ea-5dec-baca-db6b11e96e37"
+version = "0.6.1"
 
 [[LibGit2]]
 deps = ["Printf"]
@@ -137,3 +152,15 @@ uuid = "cf7118a7-6976-5b1a-9a39-7adc72f591a4"
 
 [[Unicode]]
 uuid = "4ec0a83e-493e-50e2-b9ac-8f72acf5a8f5"
+
+[[ZMQ]]
+deps = ["FileWatching", "Sockets", "ZeroMQ_jll"]
+git-tree-sha1 = "fc68e8a3719166950a0f3e390a14c7302c48f8de"
+uuid = "c2297ded-f4af-51ae-bb23-16f91089e4e1"
+version = "1.2.1"
+
+[[ZeroMQ_jll]]
+deps = ["Libdl", "Pkg"]
+git-tree-sha1 = "733352667c60ce39dfd3017db9b798b288c87417"
+uuid = "8f1865be-045e-5c20-9c9f-bfbfb0764568"
+version = "4.3.2+4"
