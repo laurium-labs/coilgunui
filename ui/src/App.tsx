@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { Typography, InputNumber, Button, Avatar } from 'antd'
+import { Typography, InputNumber, Button } from 'antd'
 import Main from './Main'
 const { Text } = Typography
 
@@ -24,9 +24,7 @@ function App() {
           <div>
             <Text>Number of coils</Text>
             <InputNumber></InputNumber>
-            <img>
-              {Main()}
-            </img>
+            {Main()}
           </div>
         </header>
       </div>
