@@ -5,34 +5,32 @@ using Joseki
 import HTTP.IOExtras.bytes
 
 function velocityPlot()
-    x = 1:10; y = rand(10); # These are the plotting data
-    return x,y
+     y = rand(10); # These are the plotting data
+    return string(y)
+    #return plot(x,y)
 end
 
+function plot2()
+    x=rand(20)
+    return string(x)
+end
 function simulate(req::HTTP.Request)
-    if !validate(req)
-        return HTTP.Response(401)
-    end
-    return velocityPlot()
+   return string( plot2())#("[1, 2, 3, 4, 5, 6, 7, 8, 9, 0]")
 end
-
+#need inputs
 function params(req::HTTP.Request)
-    b = get_default_scenario_json()
     req.response.body = bytes(b)
-    return req.response
+    return req.resonse
 end
-
-
-run_http(apiclnt, 8888, auth_preproc)
+params()
 endpoints = [
     (simulate, "GET", "/simulate"),
     (params, "GET", "/params")
 ]
 
 r = Joseki.router(endpoints)
-velocityPlot()
 
  haskey(ENV, "PORT") ? port = parse(Int32, ENV["PORT"]) : port = 8000
 println("trees")
-HTTP.serve(r, "0.0.0.0", port; verbose=false)#Belive this creates n active API, shuts down when program does
+HTTP.serve(r, "0.0.0.0", port; verbose=false)
 println("here")

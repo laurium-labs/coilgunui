@@ -1,32 +1,40 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import { Typography, InputNumber, Button } from 'antd'
-import Main from './Main'
+import { Typography, InputNumber, Button, Radio } from 'antd'
+import Plots from './Plots'
+import Input from './Inputs'
 const { Text } = Typography
 
-const apiUrl = "http://localhost:8888/server/4/5?narg1=6&narg2=4"
-
-async function getSim() {
-  await fetch(`${apiUrl}/params`).then((response) => {
-    return response.json();
-  })
-}
 function App() {
   return (
     <div className="App">
       <div className="App">
         <header className="App-header">
           <div>
-            <Text>Number of coils</Text>
-            <InputNumber></InputNumber>
-            {Main()}
+            {Input()}
+            {/* inputs for the coil gun will go here, idealy plots will refresh on value change,
+            have defualt values in already to get certain plots, is there any animation?, or at minimum an image? */}
+            <div>
+              <Plots />
+            </div>
           </div>
-        </header>
-      </div>
+        </header >
+      </div >
 
-    </div>
+    </div >
+
   );
 }
+// class App extends React.Component {
+//   public render() {
+//     return (<div className="App">
+//       <header className="App-header">
+//         <Text style={{ color: "white", paddingBottom: 10 }}>CoilGun</Text>
+//         {Main}
+//       </header>
+//     </div>
+//     );
+//   }
+// }
 
 export default App;
