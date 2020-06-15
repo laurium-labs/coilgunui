@@ -13,9 +13,8 @@ export default function Inputs() {
     const [magnetic, setMagnetic] = useState<boolean>(false)
     const [iron, setIron] = useState<boolean>(false)
 
-
     return <>
-        <div style={{ width: 900, height: 480, flexDirection: 'column' }}>
+        <div style={{ width: , height: 480, flexDirection: 'column' }}>
             <Radio.Group size='large' style={{ width: 50, height: 50 }}>
 
                 <Button title="Physical" style={{ width: 90, height: 50, }} onClick={() => {

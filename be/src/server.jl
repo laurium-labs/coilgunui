@@ -20,9 +20,9 @@ end
 #need inputs
 function params(req::HTTP.Request)
     req.response.body = bytes(b)
+    #get defualt senario from jasons machine
     return req.resonse
 end
-params()
 endpoints = [
     (simulate, "GET", "/simulate"),
     (params, "GET", "/params")
