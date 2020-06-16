@@ -16,9 +16,9 @@ function App() {
             {/* inputs for the coil gun will go here, idealy plots will refresh on value change,
             have defualt values in already to get certain plots, is there any animation?, or at minimum an image? */}
             <div>
-              <Button title='simulate' style={{ width: 80, height: 20 }} onClick={() => {
+              {!value && <Button title='simulate' style={{ width: 80, height: 20 }} onClick={() => {
                 setValue(true)
-              }} />
+              }} />}
               {value && <Plots />}
             </div>
           </div>

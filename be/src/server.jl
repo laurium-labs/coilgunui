@@ -46,7 +46,7 @@ function simulate(req::HTTP.Request)
      dict_format = parseParams(params)
      b = JSON.json(dict_format)
     println(string(b))
-   return string(b)#("[1, 2, 3, 4, 5, 6, 7, 8, 9, 0]")
+   return plot2()#("[1, 2, 3, 4, 5, 6, 7, 8, 9, 0]")
 end
 endpoints = [
     (simulate, "GET", "/simulate"),

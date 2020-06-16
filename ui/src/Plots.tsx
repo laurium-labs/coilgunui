@@ -29,19 +29,15 @@ export default class Plots extends React.Component {
     public fetchData(start: number, end: number) {
         const data: number[] = []
         for (var i = start; i <= end; i++) {
-            data.push(this.state.params[i])
+            data.push(this.state.params.barrelLength)
 
         }
         return data
     }
-    public getNumber() {
-        var r = this.state.params[2]
-        return r
-    }
     public render() {
         console.log(this.state.params)
         return <>
-            <Text>{String(this.getNumber())}</Text>
+            <Text>{this.state.params.barrelLength}rfd</Text>
             {/* <Plot
                 data={[
                     {

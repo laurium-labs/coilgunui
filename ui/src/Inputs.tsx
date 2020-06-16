@@ -23,7 +23,10 @@ export default function Inputs() {
     const [magnetic, setMagnetic] = useState<boolean>(false)
     const [iron, setIron] = useState<boolean>(false)
 
-
+    function url() {
+        barrelParameters = `?barrelInnerRadius=>${barrelInnerRadius ? barrelInnerRadius : '0'} & barrelLength=${barrelLength ? barrelLength : '0'} & barrelThickness=${barrelThickness ? barrelThickness : '0'}`
+        coilParameters = `& coilInnerRadius=${coilInnerRadius ? coilInnerRadius : '0'} & coilOuterRadius=${coilOuterRadius ? coilOuterRadius : '0'} & coilLength=${coilLength ? coilLength : '0'} & coilWireRadius=${coilWireRadius ? coilWireRadius : ''}`
+    }
     //defaluted variables for now, will likely be deleted anyway
 
     //physical projectile variables
@@ -68,12 +71,17 @@ export default function Inputs() {
                 <div>
                     <Input size='large' placeholder='Inner Radius' title='Radius' onChange={(text) => {
                         setBarrelInnerRadius(text.target.value)
+                        url()
                     }} />
                     <Input size='large' placeholder='Length' title='Density' onChange={(text) => {
                         setBarrelLength(text.target.value)
+                        url()
+
                     }} />
                     <Input size='large' placeholder='Thickness' title='Density' onChange={(text) => {
                         setBarrelThickness(text.target.value)
+                        url()
+
                     }} />
                 </div>
             </div>
@@ -82,24 +90,28 @@ export default function Inputs() {
                 <div>
                     <Input size='large' placeholder='Inner Radius' title='Radius' onChange={(text) => {
                         setCoilInnerRadius(text.target.value)
+                        url()
+
                     }} />
                     <Input size='large' placeholder='Outer Radius' title='Length' onChange={(text) => {
                         setCoilOuterRadius(text.target.value)
+                        url()
+
                     }} />
+
 
                     <Input size='large' placeholder='Length' title='Density' onChange={(text) => {
                         setCoilLength(text.target.value)
+                        url()
+
                     }} />
                     <Input size='large' placeholder='Wire Radius' title='Density' onChange={(text) => {
                         setCoilWireRadius(text.target.value)
+                        url()
+
                     }} />
                 </div>
-                {
-                    barrelParameters = `?barrelInnerRadius=>${barrelInnerRadius ? barrelInnerRadius : '0'} & barrelLength=${barrelLength ? barrelLength : '0'} & barrelThickness=${barrelThickness ? barrelThickness : '0'}`
-                }
-                {
-                    coilParameters = `& coilInnerRadius=${coilInnerRadius ? coilInnerRadius : '0'} & coilOuterRadius=${coilOuterRadius ? coilOuterRadius : '0'} & coilLength=${coilLength ? coilLength : '0'} & coilWireRadius=${coilWireRadius ? coilWireRadius : ''}`
-                }
+
             </div>
             {/* <div style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
                 <Radio.Group size='large' style={{ width: 50, height: 50 }}>
