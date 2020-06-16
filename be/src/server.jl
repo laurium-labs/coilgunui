@@ -10,22 +10,46 @@ function velocityPlot()
     #return plot(x,y)
 end
 
+function parseParams(params::Dict)
+    result = Dict()
+    for (key, value) in params
+        # key: sauna.stove.mass
+        split_keys = split(key, ".")
+        current_dict = result
+        for key_idx in 1:length(split_keys)
+            sub_key = split_keys[key_idx]
+            if key_idx == length(split_keys)
+                current_dict[sub_key] = parse(Float64, value)
+            elseif !haskey(current_dict, sub_key) 
+                current_dict[sub_key] = Dict()
+                current_dict = current_dict[sub_key]
+            else 
+                current_dict = current_dict[sub_key]
+            end
+            
+        end
+    end
+    return result
+end
+#returns list... "wheight" =>50...
+
 function plot2()
     x=rand(20)
     return string(x)
 end
+#=
+run sim, get x and y chart data, return it as such, apply to each graph
+=#
 function simulate(req::HTTP.Request)
-   return string( plot2())#("[1, 2, 3, 4, 5, 6, 7, 8, 9, 0]")
-end
-#need inputs
-function params(req::HTTP.Request)
-    req.response.body = bytes(b)
-    #get defualt senario from jasons machine
-    return req.resonse
+    params = HTTP.queryparams(HTTP.URI(req.target))
+    println(params)
+     dict_format = parseParams(params)
+     b = JSON.json(dict_format)
+    println(string(b))
+   return string(b)#("[1, 2, 3, 4, 5, 6, 7, 8, 9, 0]")
 end
 endpoints = [
     (simulate, "GET", "/simulate"),
-    (params, "GET", "/params")
 ]
 
 r = Joseki.router(endpoints)

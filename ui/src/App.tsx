@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { Typography, InputNumber, Button, Radio } from 'antd'
 import Plots from './Plots'
@@ -6,6 +6,7 @@ import Input from './Inputs'
 const { Text } = Typography
 
 function App() {
+  const [value, setValue] = useState<boolean>(false)
   return (
     <div className="App">
       <div className="App">
@@ -15,7 +16,10 @@ function App() {
             {/* inputs for the coil gun will go here, idealy plots will refresh on value change,
             have defualt values in already to get certain plots, is there any animation?, or at minimum an image? */}
             <div>
-              <Plots />
+              <Button title='simulate' style={{ width: 80, height: 20 }} onClick={() => {
+                setValue(true)
+              }} />
+              {value && <Plots />}
             </div>
           </div>
         </header >
