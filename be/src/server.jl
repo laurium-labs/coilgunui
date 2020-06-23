@@ -3,14 +3,28 @@ using JSON
 using HTTP
 using Joseki
 import HTTP.IOExtras.bytes
-
+using CoilGun: dictionary_api
+println("after")
+#=
+need to create scenarios in coilGunSim, will have to import that sim
+here, have sim take inputs from here, then execute, data retuern...? not sure
+=#
+#first 2 functions are just default returns for front end, will be deleted by end
 function velocityPlot()
      y = rand(10); # These are the plotting data
     return string(y)
     #return plot(x,y)
 end
 
-function parseParams(params::Dict)
+function plot2()
+    x=rand(40)
+    return string(x)
+end
+#=
+run sim, get x and y chart data, return it as such, apply to each graph
+=#
+
+function dotNotationToDict(params::Dict)
     result = Dict()
     for (key, value) in params
         # key: sauna.stove.mass
@@ -31,30 +45,31 @@ function parseParams(params::Dict)
     end
     return result
 end
-#returns list... "wheight" =>50...
 
-function plot2()
-    x=rand(20)
-    return string(x)
-end
-#=
-run sim, get x and y chart data, return it as such, apply to each graph
-=#
 function simulate(req::HTTP.Request)
     params = HTTP.queryparams(HTTP.URI(req.target))
-    println(params)
-     dict_format = parseParams(params)
-     b = JSON.json(dict_format)
-    println(string(b))
-   return plot2()#("[1, 2, 3, 4, 5, 6, 7, 8, 9, 0]")
+     # println(dotNotationToDict(params))
+     #b = dictionary_api(params) #execution will stop here, not an access problem
+    # println(dictionary_api())
+    #println("HHHERREEREERE")
+    #println(req)
+    # req.response.body = bytes(b)
+    #println(dictionary_api())
+    return dictionary_api()
+
+     #dict_format = parseParams(params)
+      #b = JSON.json(dict_format)
+#      preString =string(dotNotationToDict(params))
+#    return string(dotNotationToDict(params))#("[1, 2, 3, 4, 5, 6, 7, 8, 9, 0]")
 end
 endpoints = [
     (simulate, "GET", "/simulate"),
 ]
 
 r = Joseki.router(endpoints)
+println(dictionary_api())
 
  haskey(ENV, "PORT") ? port = parse(Int32, ENV["PORT"]) : port = 8000
-println("trees")
+println("server launch")
 HTTP.serve(r, "0.0.0.0", port; verbose=false)
-println("here")
+println("server ended")

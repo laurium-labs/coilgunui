@@ -3,6 +3,7 @@ import './App.css';
 import { Typography, InputNumber, Button, Radio } from 'antd'
 import Plots from './Plots'
 import Input from './Inputs'
+import Column from 'rc-table/lib/sugar/Column';
 const { Text } = Typography
 
 function App() {
@@ -11,15 +12,12 @@ function App() {
     <div className="App">
       <div className="App">
         <header className="App-header">
-          <div>
+          <div style={{ alignContent: 'center', flexDirection: 'row' }}>
             {Input()}
             {/* inputs for the coil gun will go here, idealy plots will refresh on value change,
             have defualt values in already to get certain plots, is there any animation?, or at minimum an image? */}
-            <div>
-              {!value && <Button title='simulate' style={{ width: 80, height: 20 }} onClick={() => {
-                setValue(true)
-              }} />}
-              {value && <Plots />}
+            <div style={{ flexDirection: 'row' }}>
+              <Plots />
             </div>
           </div>
         </header >
