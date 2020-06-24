@@ -38,9 +38,9 @@ version = "0.3.5"
 
 [[BandedMatrices]]
 deps = ["ArrayLayouts", "FillArrays", "LinearAlgebra", "Random", "SparseArrays"]
-git-tree-sha1 = "fd300e252fa1d96c75884cfa37fd6a5402c79d4b"
+git-tree-sha1 = "195ceb173f0759ca595770fac3b379e51579e5e7"
 uuid = "aae01518-5342-5314-be14-df237901396f"
-version = "0.15.12"
+version = "0.15.13"
 
 [[Base64]]
 uuid = "2a0f44e3-6c83-55bd-87e4-b1978d98bd5f"
@@ -76,7 +76,7 @@ version = "0.8.0"
 
 [[CoilGun]]
 deps = ["DifferentialEquations", "ForwardDiff", "Plots", "PyPlot", "Revise", "Test", "Unitful"]
-git-tree-sha1 = "6767fbd258c1bf44acaee180dd56fb44179a0912"
+git-tree-sha1 = "44bd095e117346502f364450e0a0b709da420982"
 repo-rev = "master"
 repo-url = "https://github.com/laurium-labs/CoilGun.jl"
 uuid = "d464fd6c-b65a-46b1-9011-1ed7c42571a3"
@@ -191,9 +191,9 @@ version = "2.13.3"
 
 [[DiffEqFinancial]]
 deps = ["DiffEqBase", "DiffEqNoiseProcess", "LinearAlgebra", "Markdown", "RandomNumbers"]
-git-tree-sha1 = "f0c6f2b0b9fa463a90da06142e45ecf8e0b70bac"
+git-tree-sha1 = "db08e0def560f204167c58fd0637298e13f58f73"
 uuid = "5a0ffddc-d203-54b0-88ba-2c03c0fc2e67"
-version = "2.3.0"
+version = "2.4.0"
 
 [[DiffEqJump]]
 deps = ["ArrayInterface", "Compat", "DataStructures", "DiffEqBase", "FunctionWrappers", "LinearAlgebra", "Parameters", "PoissonRandom", "Random", "RandomNumbers", "RecursiveArrayTools", "StaticArrays", "Statistics", "TreeViews"]
@@ -762,9 +762,9 @@ uuid = "ea8e919c-243c-51af-8825-aaa63cd721ce"
 
 [[SIMDPirates]]
 deps = ["VectorizationBase"]
-git-tree-sha1 = "c5d5dc291eaf45146b54c4191da1fb25a2137561"
+git-tree-sha1 = "90cd058e230da84a68de7f1f84984ab1af3652c0"
 uuid = "21efa798-c60a-11e8-04d3-e1a92915a26a"
-version = "0.8.8"
+version = "0.8.9"
 
 [[SLEEFPirates]]
 deps = ["Libdl", "SIMDPirates", "VectorizationBase"]
@@ -926,9 +926,9 @@ version = "1.2.1"
 
 [[VectorizationBase]]
 deps = ["CpuId", "LLVM", "Libdl", "LinearAlgebra"]
-git-tree-sha1 = "8d56fbe4638418ada2e350a15b7f5240fafcf62e"
+git-tree-sha1 = "0ad369a9a51802320f7716a31e4b6f45c2ea4b30"
 uuid = "3d5dd08c-fd9d-11e8-17fa-ed2836048c2f"
-version = "0.12.10"
+version = "0.12.11"
 
 [[VersionParsing]]
 git-tree-sha1 = "80229be1f670524750d905f8fc8148e5a8c4537f"

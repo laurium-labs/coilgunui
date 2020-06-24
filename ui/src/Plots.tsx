@@ -8,19 +8,29 @@ import { RadioChangeEvent } from 'antd/lib/radio';
 import { urlExtension } from './Inputs'
 const { Text } = Typography
 interface IState {
+    result: ISimulationResult;
     simulationRunning: boolean | undefined;
     params: any,
 }
-const apiUrl = "http://localhost:8000"
+const apiUrl = "http://localhost:8003"
+
+interface ISimulationResult {
+    magnetization: number[];
+    velocity: number[];
+    displacement: number[];
+    irreversiblemagnetization: number[];
+}
 
 export default class Plots extends React.Component {
+
     public readonly state: IState = {
+        result: { magnetization: [], velocity: [], displacement: [], irreversiblemagnetization: [] },
         simulationRunning: false,
         params: {},
     }
     public async componentDidMount() {
         // Get simulation params
-        const params = await fetch(`${apiUrl}/simulate?${urlExtension()}`)
+        const params = await fetch(`${apiUrl}/simulate${urlExtension()}`)
             .then((response) => {
                 return response.json();
             })
@@ -29,73 +39,101 @@ export default class Plots extends React.Component {
             });
         this.setState({ params })
     }
-    public fetchData(start: number, end: number) {
-        const data: number[] = []
-        for (var i = start; i <= end; i++) {
-            data.push(this.state.params[i])
+    // public fetchData(start: number, end: number) {
+    //     const data: number[] = []
+    //     for (var i = start; i <= end; i++) {
+    //         data.push(this.state.params[i])
+    //     }
+    //     return data
+    // }
+    // public fetchVelcocity() {
+    //     const velovity: number[] = []
+    //     return this.fetchData(0, this.state.params[0])
+    // }
+    // public fetchMagnetization() {
+    //     return this.fetchData(this.fetchXAxis().length, this.fetchXAxis().length * 2)
+    // }
+    public fetchXAxis() {
+        const axis: number[] = []
+        var i = 0
+        var dis = .2 / this.state.result.magnetization.length
+        for (i; i < this.state.result.magnetization.length; i++) {
+            if (i > 0) {
+                axis.push(dis + axis[i - 1])
+            }
+            else {
+                axis.push(dis)
+            }
         }
-        return data
+        return axis
     }
     public render() {
-        console.log(this.state.params)
+        console.log(this.state.result.magnetization)
         return <>
             <div style={{ flexDirection: 'column' }}>
                 <div>
-                    <Button disabled={false} onClick={this.runSimulationClicked} style={{ margin: 15 }}>Run Simulation</Button>
+                    {/* add disabled button+proccessing... while simulation runs */}
+                    {this.state.simulationRunning && <Text style={{ fontSize: '12' }}>Processing</Text>}
+                    {!this.state.simulationRunning && <Button disabled={this.state.simulationRunning} onClick={this.runSimulationClicked} style={{ margin: 15 }}>Run Simulation</Button>}
                 </div>
                 {/* p1 = plot(sln, vars=(0,2), title = "Displacement", ylabel = "[m]")
                 p2 = plot(sln, vars=(0,3), title = "Velocity", ylabel = "[m/s]")
                 p3 = plot(sln, vars=(0,1), title = "Magnetization", ylabel = "[A/m]", legend = false)
                 p4 = plot(sln, vars=(0,4), title = "Irriversible Magnetization", ylabel = "[A/m]") */}
                 {/* <Text>{thisetchData(1, 1)}rfd</Text> */}
-                <Plot
-                    data={[
-                        {
-                            x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-                            y: this.fetchData(0, 632),
-                            type: 'scatter',
-                            mode: 'lines+markers',
-                            marker: { color: 'red' },
-                        },
-                    ]}
-                    layout={{ width: 320, height: 240, title: 'Displacement' }}
-                />
-                <Plot
-                    data={[
-                        {
-                            x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-                            y: this.fetchData(633, 1265),
-                            type: 'scatter',
-                            mode: 'lines+markers',
-                            marker: { color: 'red' },
-                        },
-                    ]}
-                    layout={{ width: 320, height: 240, title: 'Magnetization' }}
-                />
-                <Plot
-                    data={[
-                        {
-                            x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-                            y: this.fetchData(1265, 1898),
-                            type: 'scatter',
-                            mode: 'lines+markers',
-                            marker: { color: 'red' },
-                        },
-                    ]}
-                    layout={{ width: 320, height: 240, title: 'Irreversible Magnetization' }}
-                />
-                <Plot
-                    data={[
-                        {
-                            x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-                            y: this.fetchData(1899, 2532),
-                            type: 'scatter',
-                            mode: 'lines+markers',
-                            marker: { color: 'red' },
-                        },
-                    ]}
-                    layout={{ width: 320, height: 240, title: 'Velocity' }}
-                />
+                {/* <Text>HERE{this.state.result.magentization[23]}</Text> */}
+                <div>
+                    <Plot
+                        data={[
+                            {
+                                x: this.fetchXAxis(),
+                                y: this.state.result.velocity,
+                                type: 'scatter',
+                                mode: 'lines+markers',
+                                marker: { color: 'red' },
+                            },
+                        ]}
+                        layout={{ width: 500, height: 300, title: 'Velocity' }}
+                    />
+                    <Plot
+                        data={[
+                            {
+                                x: this.fetchXAxis(),
+                                y: this.state.result.magnetization,
+                                type: 'scatter',
+                                mode: 'lines+markers',
+                                marker: { color: 'red' },
+                            },
+                        ]}
+                        layout={{ width: 500, height: 300, title: 'Magnetization' }}
+                    />
+                </div>
+                <div>
+                    <Plot
+                        data={[
+                            {
+                                x: this.fetchXAxis(),
+                                y: this.state.result.irreversiblemagnetization,
+                                type: 'scatter',
+                                mode: 'lines+markers',
+                                marker: { color: 'red' },
+                            },
+                        ]}
+                        layout={{ width: 500, height: 300, title: 'Irreversible Magnetization' }}
+                    />
+                    <Plot
+                        data={[
+                            {
+                                x: this.fetchXAxis(),
+                                y: this.state.result.displacement,
+                                type: 'scatter',
+                                mode: 'lines+markers',
+                                marker: { color: 'red' },
+                            },
+                        ]}
+                        layout={{ width: 500, height: 300, title: 'Displacement' }}
+                    />
+                </div>
             </div>
         </>
     }
@@ -157,22 +195,14 @@ export default class Plots extends React.Component {
     private runSimulationClicked = async () => {
         this.setState({ simulationRunning: true })
 
-        // const urlParams = this.paramsToUrl()
-
-        const result = await fetch(`${apiUrl}/simulate?${urlExtension()}`).then((response) => {
+        const result = await fetch(`${apiUrl}/simulate${urlExtension()}`).then((response) => {
             return response.json();
         })
             .then((myJson) => {
                 return myJson
             });
-        // googleAnalyticsEvent({ category: 'User', action: 'Ran a simulation' })
-        // if (result.error) {
-        //     this.setState({ error: true })
-        //     googleAnalyticsEvent({ category: 'User', action: 'Got a simulation error' })
-        // } else {
+        this.setState({ result })
 
-        //     this.setState({ result, error: false })
-        // }
         this.setState({ simulationRunning: false })
     }
 

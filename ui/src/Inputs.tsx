@@ -18,10 +18,7 @@ export default function Inputs() {
     const [magnetic, setMagnetic] = useState<boolean>(false)
     const [iron, setIron] = useState<boolean>(false)
 
-    function url() {
-        barrelParameters = `&blength=${barrelLength ? barrelLength : 0}&bthickness=${barrelThickness ? barrelThickness : 0}`
-        coilParameters = `&numberOfCoils=${numberOfCoils ? numberOfCoils : 0}&coilLen=${coilLength ? coilLength : 0}&wirerad=${coilWireRadius ? coilWireRadius : 0}`
-    }
+
     //defaluted variables for now, will likely be deleted anyway
 
     //physical projectile variables
@@ -42,14 +39,17 @@ export default function Inputs() {
     // const [ironVelocity, setIronVelocity] = useState<number>(2)
 
     //Barrel Variables
-    const [barrelLength, setBarrelLength] = useState<string>('')
-    const [barrelThickness, setBarrelThickness] = useState<string>('')
+    const [barrelLength, setBarrelLength] = useState<string>('4')
+    const [barrelThickness, setBarrelThickness] = useState<string>('4')
 
     //coil Variables
-    const [numberOfCoils, setNumberOFCoils] = useState<string>('')
-    const [coilLength, setCoilLength] = useState<string>('')
-    const [coilWireRadius, setCoilWireRadius] = useState<string>('')
-
+    const [numberOfCoils, setNumberOFCoils] = useState<string>('4')
+    const [coilLength, setCoilLength] = useState<string>('4')
+    const [coilWireRadius, setCoilWireRadius] = useState<string>('4')
+    function url() {
+        barrelParameters = `? length=${barrelLength ? barrelLength : 0}&thickness=${barrelThickness ? barrelThickness : 0}`
+        coilParameters = `&numberOfCoils=${numberOfCoils ? numberOfCoils : 0}&coilLength=${coilLength ? coilLength : 0}&wireRadius=${coilWireRadius ? coilWireRadius : 0}`
+    }
 
     //will not make call to BE from here, rather create a apiURL, export it, and call it 
     //from Plots, safest way to go about it, Button in Plots, fill with default values
@@ -63,16 +63,21 @@ export default function Inputs() {
                 <Text>Barrel Variables</Text>
                 <div>
                     <div>
-                        <Input size='large' placeholder='Length' title='Density' onChange={(text) => {
+                        <Text style={{ fontSize: 20 }}>Length:</Text>
+                        <Input size='large' defaultValue='4' title='Density' onChange={(text) => {
                             setBarrelLength(text.target.value)
                             url()
                         }} />
+                        <Text style={{ fontSize: 20 }}>m</Text>
                     </div>
                     <div>
-                        <Input size='large' placeholder='Thickness' title='Density' onChange={(text) => {
+                        <Text style={{ fontSize: 20 }}>Thickness:</Text>
+                        <Input size='large' defaultValue='4' title='Density' onChange={(text) => {
                             setBarrelThickness(text.target.value)
                             url()
                         }} />
+                        <Text style={{ fontSize: 20 }}>mm</Text>
+
                     </div>
                 </div>
             </div>
@@ -80,22 +85,28 @@ export default function Inputs() {
                 <Text>Coil Variables</Text>
                 <div>
                     <div>
-                        <Input size='large' placeholder='Number of coils' title='Length' onChange={(text) => {
+                        <Text style={{ fontSize: 20 }}>Number of coils:</Text>
+                        <Input size='large' defaultValue='4' title='Length' onChange={(text) => {
                             setNumberOFCoils(text.target.value)
                             url()
                         }} />
                     </div>
                     <div>
-                        <Input size='large' placeholder='Length' title='Density' onChange={(text) => {
+                        <Text style={{ fontSize: 20 }}>Density:</Text>
+                        <Input size='large' defaultValue='4' title='Density' onChange={(text) => {
                             setCoilLength(text.target.value)
                             url()
                         }} />
+                        <Text style={{ fontSize: 20 }}>kg/m^3</Text>
+
                     </div>
                     <div>
-                        <Input size='large' placeholder='Wire Radius' title='Density' onChange={(text) => {
+                        <Text style={{ fontSize: 20 }}>Wire Radius:</Text>
+                        <Input size='large' defaultValue='4' title='Density' onChange={(text) => {
                             setCoilWireRadius(text.target.value)
                             url()
                         }} />
+                        <Text style={{ fontSize: 20 }}>mm</Text>
                     </div>
                 </div>
             </div>

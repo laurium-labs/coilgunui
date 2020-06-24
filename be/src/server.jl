@@ -4,7 +4,6 @@ using HTTP
 using Joseki
 import HTTP.IOExtras.bytes
 using CoilGun: dictionary_api
-println("after")
 #=
 need to create scenarios in coilGunSim, will have to import that sim
 here, have sim take inputs from here, then execute, data retuern...? not sure
@@ -48,6 +47,10 @@ end
 
 function simulate(req::HTTP.Request)
     params = HTTP.queryparams(HTTP.URI(req.target))
+
+    for (key, value) in params
+        println(key, "=>", value)
+    end
      # println(dotNotationToDict(params))
      #b = dictionary_api(params) #execution will stop here, not an access problem
     # println(dictionary_api())
@@ -55,7 +58,15 @@ function simulate(req::HTTP.Request)
     #println(req)
     # req.response.body = bytes(b)
     #println(dictionary_api())
-    return dictionary_api()
+    println("1")
+    b = JSON.json(dictionary_api())
+    println("2")
+    req.response.body = bytes(b)
+    println("3")
+    return req.response
+
+    # println("jdjd")
+    # return dictionary_api()
 
      #dict_format = parseParams(params)
       #b = JSON.json(dict_format)
@@ -67,9 +78,8 @@ endpoints = [
 ]
 
 r = Joseki.router(endpoints)
-println(dictionary_api())
 
- haskey(ENV, "PORT") ? port = parse(Int32, ENV["PORT"]) : port = 8000
+ haskey(ENV, "PORT") ? port = parse(Int32, ENV["PORT"]) : port = 8003
 println("server launch")
 HTTP.serve(r, "0.0.0.0", port; verbose=false)
 println("server ended")
