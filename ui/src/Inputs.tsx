@@ -47,9 +47,10 @@ export default function Inputs() {
     const [coilLength, setCoilLength] = useState<string>('4')
     const [coilWireRadius, setCoilWireRadius] = useState<string>('4')
     function url() {
-        barrelParameters = `? length=${barrelLength ? barrelLength : 0}&thickness=${barrelThickness ? barrelThickness : 0}`
-        coilParameters = `&numberOfCoils=${numberOfCoils ? numberOfCoils : 0}&coilLength=${coilLength ? coilLength : 0}&wireRadius=${coilWireRadius ? coilWireRadius : 0}`
+        barrelParameters = `? CoilGun.Barrel(1/1000 m,${barrelThickness ? barrelThickness : 0},${barrelLength ? barrelLength : 0} `
+        // coilParameters = `&CoilGun.Coil.length=${coilLength ? coilLength : 0}&CoilGun.Coil.wireRadius=${coilWireRadius ? coilWireRadius : 0}`
     }
+    //&numberOfCoils=${numberOfCoils ? numberOfCoils : 0}
     useEffect(() => {
         url()
     })
@@ -82,13 +83,13 @@ export default function Inputs() {
             <div style={{ marginTop: 30, flexDirection: 'column' }}>
                 <Text>Coil Variables</Text>
                 <div>
-                    <div>
+                    {/* <div>
                         <Text style={{ fontSize: 20 }}>Number of coils:</Text>
                         <Input size='large' defaultValue='4' title='Length' onChange={(text) => {
                             setNumberOFCoils(text.target.value)
                             url()
                         }} />
-                    </div>
+                    </div> */}
                     <div>
                         <Text style={{ fontSize: 20 }}>Coil Length:</Text>
                         <Input size='large' defaultValue='4' title='Density' onChange={(text) => {

@@ -33,10 +33,8 @@ function simulate(req::HTTP.Request)
     for (key, value) in params
         println(key, "=>", value)
     end
-    println(string(dictionary_api(dotNotationToDict(params))))
-
     println("1")
-    # b = JSON.json(dictionary_api(dotNotationToDict(params)))
+    b = JSON.json(dictionary_api(dotNotationToDict(params)))
     println("2")
     req.response.body = bytes(b)
     println("3")
@@ -47,7 +45,7 @@ endpoints = [
 ]
 
 r = Joseki.router(endpoints)
- haskey(ENV, "PORT") ? port = parse(Int32, ENV["PORT"]) : port = 8008
+haskey(ENV, "PORT") ? port = parse(Int32, ENV["PORT"]) : port = 8009
 println("server launch")
 HTTP.serve(r, "0.0.0.0", port; verbose=false)
 println("server ended")

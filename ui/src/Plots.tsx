@@ -12,7 +12,7 @@ interface IState {
     simulationRunning: boolean | undefined;
     params: any,
 }
-const apiUrl = "http://localhost:8008"
+const apiUrl = "http://localhost:8009"
 
 interface ISimulationResult {
     time: number[]
@@ -89,7 +89,7 @@ export default class Plots extends React.Component {
                                 x: this.state.result.time,//this.fetchXAxis(),
                                 y: this.state.result.velocity,
                                 type: 'scatter',
-                                mode: 'lines+markers',
+                                mode: 'lines',
                                 marker: { color: 'red' },
                             },
                         ]}
@@ -101,7 +101,7 @@ export default class Plots extends React.Component {
                                 x: this.state.result.time,//this.fetchXAxis(),,
                                 y: this.state.result.magnetization,
                                 type: 'scatter',
-                                mode: 'lines+markers',
+                                mode: 'lines',
                                 marker: { color: 'red' },
                             },
                         ]}
@@ -115,7 +115,7 @@ export default class Plots extends React.Component {
                                 x: this.state.result.time,//this.fetchXAxis(),
                                 y: this.state.result.irreversibleMagentization,
                                 type: 'scatter',
-                                mode: 'lines+markers',
+                                mode: 'lines',
                                 marker: { color: 'red' },
                             },
                         ]}
@@ -127,7 +127,7 @@ export default class Plots extends React.Component {
                                 x: this.state.result.time,//this.fetchXAxis(),
                                 y: this.state.result.displacement,
                                 type: 'scatter',
-                                mode: 'lines+markers',
+                                mode: 'lines',
                                 marker: { color: 'red' },
                             },
                         ]}
