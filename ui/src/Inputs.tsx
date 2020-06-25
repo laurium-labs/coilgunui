@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import './App.css';
 import Plot from 'react-plotly.js';
@@ -50,11 +50,9 @@ export default function Inputs() {
         barrelParameters = `? length=${barrelLength ? barrelLength : 0}&thickness=${barrelThickness ? barrelThickness : 0}`
         coilParameters = `&numberOfCoils=${numberOfCoils ? numberOfCoils : 0}&coilLength=${coilLength ? coilLength : 0}&wireRadius=${coilWireRadius ? coilWireRadius : 0}`
     }
-
-    //will not make call to BE from here, rather create a apiURL, export it, and call it 
-    //from Plots, safest way to go about it, Button in Plots, fill with default values
-    //so button can be clicked with no changes to parameters
-    // state?state:'name'=default value
+    useEffect(() => {
+        url()
+    })
     return <>
         {/* <div style={{ width: 900, height: 480, flexDirection: 'column', alignItems: 'flex-start', alignContent: 'center' }}> */}
         <div style={{ flexDirection: 'column', alignItems: 'flex-start', alignContent: 'center' }}>
@@ -92,12 +90,12 @@ export default function Inputs() {
                         }} />
                     </div>
                     <div>
-                        <Text style={{ fontSize: 20 }}>Density:</Text>
+                        <Text style={{ fontSize: 20 }}>Coil Length:</Text>
                         <Input size='large' defaultValue='4' title='Density' onChange={(text) => {
                             setCoilLength(text.target.value)
                             url()
                         }} />
-                        <Text style={{ fontSize: 20 }}>kg/m^3</Text>
+                        <Text style={{ fontSize: 20 }}>mm</Text>
 
                     </div>
                     <div>

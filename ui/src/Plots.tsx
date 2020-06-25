@@ -12,19 +12,20 @@ interface IState {
     simulationRunning: boolean | undefined;
     params: any,
 }
-const apiUrl = "http://localhost:8003"
+const apiUrl = "http://localhost:8008"
 
 interface ISimulationResult {
+    time: number[]
     magnetization: number[];
     velocity: number[];
     displacement: number[];
-    irreversiblemagnetization: number[];
+    irreversibleMagentization: number[];
 }
 
 export default class Plots extends React.Component {
 
     public readonly state: IState = {
-        result: { magnetization: [], velocity: [], displacement: [], irreversiblemagnetization: [] },
+        result: { time: [], magnetization: [], velocity: [], displacement: [], irreversibleMagentization: [] },
         simulationRunning: false,
         params: {},
     }
@@ -53,22 +54,21 @@ export default class Plots extends React.Component {
     // public fetchMagnetization() {
     //     return this.fetchData(this.fetchXAxis().length, this.fetchXAxis().length * 2)
     // }
-    public fetchXAxis() {
-        const axis: number[] = []
-        var i = 0
-        var dis = .2 / this.state.result.magnetization.length
-        for (i; i < this.state.result.magnetization.length; i++) {
-            if (i > 0) {
-                axis.push(dis + axis[i - 1])
-            }
-            else {
-                axis.push(dis)
-            }
-        }
-        return axis
-    }
+    // public fetchXAxis() {
+    //     const axis: number[] = []
+    //     var i = 0
+    //     var dis = .2 / this.state.result.magnetization.length
+    //     for (i; i < this.state.result.magnetization.length; i++) {
+    //         if (i > 0) {
+    //             axis.push(dis + axis[i - 1])
+    //         }
+    //         else {
+    //             axis.push(dis)
+    //         }
+    //     }
+    //     return axis
+    // }
     public render() {
-        console.log(this.state.result.magnetization)
         return <>
             <div style={{ flexDirection: 'column' }}>
                 <div>
@@ -86,7 +86,7 @@ export default class Plots extends React.Component {
                     <Plot
                         data={[
                             {
-                                x: this.fetchXAxis(),
+                                x: this.state.result.time,//this.fetchXAxis(),
                                 y: this.state.result.velocity,
                                 type: 'scatter',
                                 mode: 'lines+markers',
@@ -98,7 +98,7 @@ export default class Plots extends React.Component {
                     <Plot
                         data={[
                             {
-                                x: this.fetchXAxis(),
+                                x: this.state.result.time,//this.fetchXAxis(),,
                                 y: this.state.result.magnetization,
                                 type: 'scatter',
                                 mode: 'lines+markers',
@@ -112,8 +112,8 @@ export default class Plots extends React.Component {
                     <Plot
                         data={[
                             {
-                                x: this.fetchXAxis(),
-                                y: this.state.result.irreversiblemagnetization,
+                                x: this.state.result.time,//this.fetchXAxis(),
+                                y: this.state.result.irreversibleMagentization,
                                 type: 'scatter',
                                 mode: 'lines+markers',
                                 marker: { color: 'red' },
@@ -124,7 +124,7 @@ export default class Plots extends React.Component {
                     <Plot
                         data={[
                             {
-                                x: this.fetchXAxis(),
+                                x: this.state.result.time,//this.fetchXAxis(),
                                 y: this.state.result.displacement,
                                 type: 'scatter',
                                 mode: 'lines+markers',
