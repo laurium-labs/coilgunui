@@ -1,4 +1,3 @@
-using Plots
 using JSON
 using HTTP
 using Joseki
@@ -34,7 +33,7 @@ function simulate(req::HTTP.Request)
         println(key, "=>", value)
     end
     println("1")
-    b = JSON.json(dictionary_api(dotNotationToDict(params)))
+    b = JSON.json(dictionary_api())
     println("2")
     req.response.body = bytes(b)
     println("3")

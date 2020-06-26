@@ -47,8 +47,8 @@ export default function Inputs() {
     const [coilLength, setCoilLength] = useState<string>('4')
     const [coilWireRadius, setCoilWireRadius] = useState<string>('4')
     function url() {
-        barrelParameters = `? CoilGun.Barrel(1/1000 m,${barrelThickness ? barrelThickness : 0},${barrelLength ? barrelLength : 0} `
-        // coilParameters = `&CoilGun.Coil.length=${coilLength ? coilLength : 0}&CoilGun.Coil.wireRadius=${coilWireRadius ? coilWireRadius : 0}`
+        barrelParameters = `? barell=${barrelThickness ? barrelThickness : 0}&barrelLength=${barrelLength ? barrelLength : 0} `
+        coilParameters = `&coillength=${coilLength ? coilLength : 0}&wireRadius=${coilWireRadius ? coilWireRadius : 0}`
     }
     //&numberOfCoils=${numberOfCoils ? numberOfCoils : 0}
     useEffect(() => {
