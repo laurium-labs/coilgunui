@@ -2,7 +2,7 @@ using JSON
 using HTTP
 using Joseki
 import HTTP.IOExtras.bytes
-using CoilGun: dictionary_api
+using CoilGun: dictionary_api, get_default_scenario_json
 
 function dotNotationToDict(params::Dict)
     result = Dict()
@@ -33,14 +33,25 @@ function simulate(req::HTTP.Request)
         println(key, "=>", value)
     end
     println("1")
-    b = JSON.json(dictionary_api())
+    b = JSON.json(dictionary_api(dotNotationToDict(params)))
     println("2")
     req.response.body = bytes(b)
     println("3")
     return req.response
 end
+
+function params(req::HTTP.Request)
+    println("here")
+    println(get_default_scenario_json())
+    b= get_default_scenario_json()
+    req.response.body = bytes(b)
+    println(req.response)
+    return req.response
+end
+
 endpoints = [
     (simulate, "GET", "/simulate"),
+    (params, "GET", "/params")
 ]
 
 r = Joseki.router(endpoints)

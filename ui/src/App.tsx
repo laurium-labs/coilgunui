@@ -13,7 +13,7 @@ function App() {
       <div className="App">
         <header className="App-header">
           <div style={{ alignContent: 'center', flexDirection: 'row' }}>
-            {Input()}
+            {/* {Input()} */}
             {/* inputs for the coil gun will go here, idealy plots will refresh on value change,
             have defualt values in already to get certain plots, is there any animation?, or at minimum an image? */}
             <div style={{ flexDirection: 'row' }}>
