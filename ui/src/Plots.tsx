@@ -1,13 +1,11 @@
 
 import * as React from 'react';
-
+//import { Dot } from 'react-animated-dots';
 import './App.css';
 import Plot from 'react-plotly.js';
-import { Typography, InputNumber, Button, Radio } from 'antd'
-import { ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, Divider, Link } from '@material-ui/core';
+import { Typography, Button } from 'antd'
+import { ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, Link } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { RadioChangeEvent } from 'antd/lib/radio';
-import { urlExtension } from './Inputs'
 const { Text } = Typography
 interface IState {
     result: ISimulationResult;
@@ -17,17 +15,17 @@ interface IState {
 const apiUrl = "http://localhost:8009"
 
 interface ISimulationResult {
-    time: number[]
     magnetization: number[];
     velocity: number[];
     displacement: number[];
     irreversibleMagentization: number[];
+    endTime: number
 }
 
 export default class Plots extends React.Component {
 
     public readonly state: IState = {
-        result: { time: [], magnetization: [], velocity: [], displacement: [], irreversibleMagentization: [] },
+        result: { magnetization: [], velocity: [], displacement: [], irreversibleMagentization: [], endTime: 1 },
         simulationRunning: false,
         params: {},
 
@@ -67,7 +65,7 @@ export default class Plots extends React.Component {
         return axis
     }
     public render() {
-        const paramsComponents = this.getParams(this.state.params, 0, [])
+        const paramsComponents = this.getParams(this.state.params, [])
 
         return <>
             <div style={{ flexDirection: 'column' }}>
@@ -77,29 +75,28 @@ export default class Plots extends React.Component {
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
                         <div className="Params">
-                            <div className="ParamsContainer">
+                            <div className="ParamsContainer" style={{ flexDirection: 'row' }}>
                                 {paramsComponents}
                             </div>
-                            <Typography style={{ paddingTop: 15 }}>These parameters are programmatically generated from <Link
+                            <Typography style={{ paddingTop: 15 }}>These parameters are generated from <Link
                                 href={"https://github.com/laurium-labs/CoilGun.jl/blob/master/src/api/default_components.jl"}
                                 target="_blank"
                             >
                                 CoilGun.jl
-                </Link>. That's pretty neat. </Typography>
+                </Link></Typography>
                         </div >
                     </ExpansionPanelDetails>
                 </ExpansionPanel>
                 <div>
-                    {/* add disabled button+proccessing... while simulation runs */}
-                    {this.state.simulationRunning && <Text style={{ fontSize: '12' }}>Processing</Text>}
-                    {!this.state.simulationRunning && <Button disabled={this.state.simulationRunning} onClick={this.runSimulationClicked} style={{ margin: 15 }}>Run Simulation</Button>}
+                    {this.state.simulationRunning && <>
+                        <Text style={{ fontSize: '12' }}>Processing</Text>
+                        {/* <Dot>.</Dot>
+                        <Dot>.</Dot>
+                        <Dot>.</Dot> */}
+                    </>
+                    }
+                    {!this.state.simulationRunning && <Button disabled={this.state.simulationRunning} onClick={this.runSimulationClicked} style={{ margin: 10 }}>Run Simulation</Button>}
                 </div>
-                {/* p1 = plot(sln, vars=(0,2), title = "Displacement", ylabel = "[m]")
-                p2 = plot(sln, vars=(0,3), title = "Velocity", ylabel = "[m/s]")
-                p3 = plot(sln, vars=(0,1), title = "Magnetization", ylabel = "[A/m]", legend = false)
-                p4 = plot(sln, vars=(0,4), title = "Irriversible Magnetization", ylabel = "[A/m]") */}
-                {/* <Text>{thisetchData(1, 1)}rfd</Text> */}
-                {/* <Text>HERE{this.state.result.magentization[23]}</Text> */}
                 <div>
                     <Plot
                         data={[
@@ -111,7 +108,16 @@ export default class Plots extends React.Component {
                                 marker: { color: 'red' },
                             },
                         ]}
-                        layout={{ width: 500, height: 300, title: 'Velocity' }}
+                        layout={{
+                            title: 'velocity',
+                            xaxis: { title: "Time (seconds)" },
+                            yaxis: { title: "m/s" },
+                            width: 500,
+                            height: 300,
+                            plot_bgcolor: "#F8F8F8"
+
+
+                        }}
                     />
                     <Plot
                         data={[
@@ -123,7 +129,16 @@ export default class Plots extends React.Component {
                                 marker: { color: 'red' },
                             },
                         ]}
-                        layout={{ width: 500, height: 300, title: 'Magnetization' }}
+                        layout={{
+                            title: 'Magnetization',
+                            xaxis: { title: "Time (seconds)" },
+                            yaxis: { title: "[A/m]" },
+                            width: 500,
+                            height: 300,
+                            plot_bgcolor: "#F8F8F8"
+
+
+                        }}
                     />
                 </div>
                 <div>
@@ -137,8 +152,16 @@ export default class Plots extends React.Component {
                                 marker: { color: 'red' },
                             },
                         ]}
-                        layout={{ width: 500, height: 300, title: 'Irreversible Magnetization' }}
-                    />
+                        layout={{
+                            title: 'Irriversible Magnetization',
+                            xaxis: { title: "Time (seconds)" },
+                            yaxis: { title: "[A/m]" },
+                            width: 500,
+                            height: 300,
+                            plot_bgcolor: "#F8F8F8"
+
+
+                        }} />
                     <Plot
                         data={[
                             {
@@ -149,42 +172,57 @@ export default class Plots extends React.Component {
                                 marker: { color: 'red' },
                             },
                         ]}
-                        layout={{ width: 500, height: 300, title: 'Displacement' }}
-                    />
+                        layout={{
+                            title: 'Displacement',
+                            xaxis: { title: "Time (seconds)" },
+                            yaxis: { title: "m" },
+                            width: 500,
+                            height: 300,
+                            plot_bgcolor: "#F8F8F8"
+
+
+                        }} />
                 </div>
             </div>
         </>
     }
 
 
-    private getParams(params: any, padding: number, path: string[]) {
+    private getParams(params: any, path: string[]) {
+        var idCount = 0
         return <React.Fragment key={path.join(".")}>
-            {path.length > 0 && <h4 style={{ paddingLeft: padding }}>{path[path.length - 1]}</h4>}
-            {Object.keys(params)
-                .filter(k => Object.keys(params[k]).length > 0)
-                .sort((a, b) => {
-                    if (this.isUnit(params[a]) && !this.isUnit(params[b])) {
-                        return -1
-                    } else if (!this.isUnit(params[a]) && this.isUnit(params[b])) {
-                        return 1
-                    } else {
-                        return 0
-                    }
-                })
-                .map(k => {
-                    const newPath = [...path]
-                    newPath.push(k)
-                    const onChange = (event: any) => this.paramChanged(event, newPath)
-                    if (this.isUnit(params[k])) {
-                        return <div className="ParamRow" key={newPath.join(".")}>
-                            <p style={{ paddingLeft: padding + 5 }} className="Param">{k}</p>
-                            <input type="text" value={params[k].val} className="Param" onChange={onChange} />
-                            <p className="Param">{params[k].unit}</p>
-                        </div>
-                    } else {
-                        return this.getParams(params[k], padding + 10, newPath)
-                    }
-                })}
+            <div>
+                {path.length > 0 && <h4 style={{ textAlign: 'center' }}>{(path[path.length - 1] !== "ip") && path[path.length - 1]}</h4>}
+                {
+                    Object.keys(params)
+                        .filter(k => Object.keys(params[k]).length > 0)
+                        .sort((a, b) => {
+                            if (this.isUnit(params[a]) && !this.isUnit(params[b])) {
+                                return -1
+                            } else if (!this.isUnit(params[a]) && this.isUnit(params[b])) {
+                                return 1
+                            } else {
+                                return 0
+                            }
+                        })
+                        .map(k => {
+                            idCount++
+                            const newPath = [...path]
+                            newPath.push(k)
+                            const onChange = (event: any) => this.paramChanged(event, newPath)
+                            if (this.isUnit(params[k])) {
+                                return <div className="ParamRow" key={newPath.join(".")} style={{ textAlign: 'right', alignContent: 'center', paddingTop: 2, width: '80%' }} >
+                                    <label style={{ fontSize: 17 }} htmlFor={path.join(".") + idCount}>{k}({params[k].unit})</label>
+                                    <input id={path.join(".") + idCount} type="text" value={params[k].val} className="Param" onChange={onChange} />
+                                    {/* <p style={{ paddingLeft: 5, fontSize: 20, verticalAlign: 'center', textAlign: 'right' }} className="Param">{k}</p>
+                                <input style={{ textAlign: 'left', marginLeft: 3 }} type="text" value={params[k].val} className="Param" onChange={onChange} />
+                                <p className="Param" style={{ fontSize: 20, textAlign: 'left' }}>{(params[k].unit !== "") ? params[k].unit : "count"}</p> */}
+                                </div>
+                            } else {
+                                return this.getParams(params[k], newPath)
+                            }
+                        })}
+            </div>
         </React.Fragment>
     }
 
@@ -248,7 +286,7 @@ export default class Plots extends React.Component {
         this.setState({ simulationRunning: true })
         const urlParams = this.paramsToUrl()
 
-        const result = await fetch(`${apiUrl}/simulate${urlParams}`).then((response) => {
+        const result = await fetch(`${apiUrl}/simulate?${urlParams}`).then((response) => {
             return response.json();
         })
             .then((myJson) => {

@@ -1,24 +1,26 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
-import { Typography, InputNumber, Button, Radio } from 'antd'
+import { Typography } from 'antd'
 import Plots from './Plots'
-import Input from './Inputs'
-import Column from 'rc-table/lib/sugar/Column';
+import { Link } from '@material-ui/core';
 const { Text } = Typography
 
 function App() {
-  const [value, setValue] = useState<boolean>(false)
   return (
     <div className="App">
       <div className="App">
         <header className="App-header">
+          <Text style={{ fontSize: 45 }}>Coil Gun Simulator</Text>
           <div style={{ alignContent: 'center', flexDirection: 'row' }}>
-            {/* {Input()} */}
-            {/* inputs for the coil gun will go here, idealy plots will refresh on value change,
-            have defualt values in already to get certain plots, is there any animation?, or at minimum an image? */}
             <div style={{ flexDirection: 'row' }}>
               <Plots />
             </div>
+            <Typography style={{ paddingTop: 15 }}>Read about the coil gun simulator <Link
+              href={"https://github.com/laurium-labs/CoilGun.jl"}
+              target="_blank"
+            >
+              here
+                </Link></Typography>
           </div>
         </header >
       </div >
