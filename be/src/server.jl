@@ -28,26 +28,15 @@ end
 
 function simulate(req::HTTP.Request)
     params = HTTP.queryparams(HTTP.URI(req.target))
-
-    for (key, value) in params
-        println(key, "=>", value)
-    end
-    println("1")
     c = dotNotationToDict(params)
-    println(c)
     b = JSON.json(dictionary_api(c))
-    println("2")
     req.response.body = bytes(b)
-    println("3")
-    println(req.response)
     return req.response
 end
 
 function params(req::HTTP.Request)
-    println("here")
     b= get_default_scenario_json()
     req.response.body = bytes(b)
-    println("second")
     return req.response
 end
 
@@ -57,7 +46,7 @@ endpoints = [
 ]
 
 r = Joseki.router(endpoints)
+println("before")
 haskey(ENV, "PORT") ? port = parse(Int32, ENV["PORT"]) : port = 8009
-println("server launch")
+println("launched")
 HTTP.serve(r, "0.0.0.0", port; verbose=false)
-println("server ended")

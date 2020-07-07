@@ -10,12 +10,12 @@ function App() {
     <div className="App">
       <div className="App">
         <header className="App-header">
-          <Text style={{ fontSize: 45 }}>Coil Gun Simulator</Text>
+          <Text style={{ fontSize: 45, color: 'white' }}>Coil Gun Simulator</Text>
           <div style={{ alignContent: 'center', flexDirection: 'row' }}>
             <div style={{ flexDirection: 'row' }}>
               <Plots />
             </div>
-            <Typography style={{ paddingTop: 15 }}>Read about the coil gun simulator <Link
+            <Typography style={{ paddingTop: 15, color: 'white' }}>Read about the coil gun simulator <Link
               href={"https://github.com/laurium-labs/CoilGun.jl"}
               target="_blank"
             >

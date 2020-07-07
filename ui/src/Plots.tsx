@@ -1,11 +1,11 @@
 
 import * as React from 'react';
-//import { Dot } from 'react-animated-dots';
 import './App.css';
 import Plot from 'react-plotly.js';
 import { Typography, Button } from 'antd'
 import { ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, Link } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import LoadingSpin from './LoadingSpin';
 const { Text } = Typography
 interface IState {
     result: ISimulationResult;
@@ -53,13 +53,25 @@ export default class Plots extends React.Component {
     fetchXAxis() {
         const axis: number[] = []
         var i = 0
-        var dis = .2 / this.state.result.magnetization.length
-        for (i; i < this.state.result.magnetization.length; i++) {
-            if (i > 0) {
-                axis.push(dis + axis[i - 1])
+        const length = this.state.result.magnetization.length
+        const halfLength = length / 2
+        var dis = this.state.result.endTime / length
+        var double = dis * 1.5
+        var half = dis / 2
+        for (i; i < length; i++) {
+            //These if statements will emphasize the change that happens in the returned data, not the stable line that takes up most of the graph
+            //you would think this would lead to inaccuracy, but end time doesnt change graph shape at all on current simulator
+            //will just show the same line, willl take 40 seconds to complete or 2, will be the same
+            if (i > halfLength) {
+                axis.push(double + axis[i - 1])
             }
-            else {
-                axis.push(dis)
+            if (i <= halfLength) {
+                if (i > 0) {
+                    axis.push(half + axis[i - 1])
+                }
+                else {
+                    axis.push(half)
+                }
             }
         }
         return axis
@@ -71,14 +83,14 @@ export default class Plots extends React.Component {
             <div style={{ flexDirection: 'column' }}>
                 <ExpansionPanel>
                     <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                        <Text>Parameters</Text>
+                        <Text style={{ color: 'black' }}>Parameters</Text>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
                         <div className="Params">
                             <div className="ParamsContainer" style={{ flexDirection: 'row' }}>
                                 {paramsComponents}
                             </div>
-                            <Typography style={{ paddingTop: 15 }}>These parameters are generated from <Link
+                            <Typography style={{ paddingTop: 15, color: 'black' }}>These parameters are generated from <Link
                                 href={"https://github.com/laurium-labs/CoilGun.jl/blob/master/src/api/default_components.jl"}
                                 target="_blank"
                             >
@@ -89,13 +101,11 @@ export default class Plots extends React.Component {
                 </ExpansionPanel>
                 <div>
                     {this.state.simulationRunning && <>
-                        <Text style={{ fontSize: '12' }}>Processing</Text>
-                        {/* <Dot>.</Dot>
-                        <Dot>.</Dot>
-                        <Dot>.</Dot> */}
+                        <Text style={{ fontSize: '12', color: 'white' }}>Processing</Text>
+                        <LoadingSpin />
                     </>
                     }
-                    {!this.state.simulationRunning && <Button disabled={this.state.simulationRunning} onClick={this.runSimulationClicked} style={{ margin: 10 }}>Run Simulation</Button>}
+                    {!this.state.simulationRunning && <Button disabled={this.state.simulationRunning} onClick={this.runSimulationClicked} style={{ margin: 10, color: 'black' }}>Run Simulation</Button>}
                 </div>
                 <div>
                     <Plot
@@ -213,10 +223,7 @@ export default class Plots extends React.Component {
                             if (this.isUnit(params[k])) {
                                 return <div className="ParamRow" key={newPath.join(".")} style={{ textAlign: 'right', alignContent: 'center', paddingTop: 2, width: '80%' }} >
                                     <label style={{ fontSize: 17 }} htmlFor={path.join(".") + idCount}>{k}({params[k].unit})</label>
-                                    <input id={path.join(".") + idCount} type="text" value={params[k].val} className="Param" onChange={onChange} />
-                                    {/* <p style={{ paddingLeft: 5, fontSize: 20, verticalAlign: 'center', textAlign: 'right' }} className="Param">{k}</p>
-                                <input style={{ textAlign: 'left', marginLeft: 3 }} type="text" value={params[k].val} className="Param" onChange={onChange} />
-                                <p className="Param" style={{ fontSize: 20, textAlign: 'left' }}>{(params[k].unit !== "") ? params[k].unit : "count"}</p> */}
+                                    <input style={{ fontSize: 15 }} id={path.join(".") + idCount} value={params[k].val} className="Param" onChange={onChange} ></input>
                                 </div>
                             } else {
                                 return this.getParams(params[k], newPath)
@@ -234,8 +241,6 @@ export default class Plots extends React.Component {
 
     }
     private stripUnits(ob: any) {
-        // Input {"a": {"val": 1, "unit": "Kg"}}
-        // Output {"a": 1}
         const retval: any = {}
         Object.keys(ob).forEach(k => {
             if (this.isUnit(ob[k])) {
@@ -248,7 +253,6 @@ export default class Plots extends React.Component {
     }
 
     private isUnit(ob: any) {
-        // return true if it looks like {"val": 1, "unit": "kg"}
         const isSetsEqual = (a: any, b: any) => {
             return a.size === b.size && Array.from(a).every(value => b.has(value));
         }
@@ -258,8 +262,6 @@ export default class Plots extends React.Component {
     }
 
     private toDotNotation(ob: any, currentPath: string[], result: string[]) {
-        // Input: {"a": {"b" : 1}, "c": 2}
-        // Output: a.b=1&c=2
         Object.keys(ob).forEach(k => {
             const newPath = [...currentPath]
             newPath.push(k)
