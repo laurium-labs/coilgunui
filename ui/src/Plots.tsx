@@ -93,7 +93,7 @@ export default class Plots extends React.Component {
                             },
                         ]}
                         layout={{
-                            title: 'velocity',
+                            title: 'Velocity',
                             xaxis: { title: "Time (seconds)" },
                             yaxis: { title: "m/s" },
                             width: 600,
