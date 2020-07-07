@@ -50,9 +50,9 @@ version = "0.3.5"
 
 [[BandedMatrices]]
 deps = ["ArrayLayouts", "FillArrays", "LinearAlgebra", "Random", "SparseArrays"]
-git-tree-sha1 = "d97042fb68c9c5492385d4c68ba65c2e9d16c564"
+git-tree-sha1 = "eaf98fa821ab26c5825fa3a054db735755c335da"
 uuid = "aae01518-5342-5314-be14-df237901396f"
-version = "0.15.14"
+version = "0.15.15"
 
 [[Base64]]
 uuid = "2a0f44e3-6c83-55bd-87e4-b1978d98bd5f"
@@ -88,7 +88,7 @@ version = "0.8.1"
 
 [[CoilGun]]
 deps = ["DifferentialEquations", "ForwardDiff", "JSON", "Plots", "PyPlot", "Revise", "Test", "Unitful"]
-git-tree-sha1 = "fcb19514dc7721bf73c470a16a9c74db666a5a98"
+git-tree-sha1 = "85556a1d4aa5138332bd55c2289144b43ba4a8b9"
 repo-rev = "master"
 repo-url = "https://github.com/laurium-labs/CoilGun.jl"
 uuid = "d464fd6c-b65a-46b1-9011-1ed7c42571a3"
@@ -305,9 +305,9 @@ version = "0.8.12"
 
 [[FiniteDiff]]
 deps = ["ArrayInterface", "LinearAlgebra", "Requires", "SparseArrays", "StaticArrays"]
-git-tree-sha1 = "fec7c2cb45c27071ef487fa7cae4fcac7509aa10"
+git-tree-sha1 = "e297f3d67f34b5283d4c79a8a1e9f4ce00dd7160"
 uuid = "6a86dc24-6348-571c-b903-95158fe2bd41"
-version = "2.3.2"
+version = "2.4.0"
 
 [[FixedPointNumbers]]
 git-tree-sha1 = "8fb797c37a3b7ced4327a05ac4ca0dd6a4f1ba92"
@@ -447,9 +447,9 @@ version = "1.1.0"
 
 [[LabelledArrays]]
 deps = ["ArrayInterface", "LinearAlgebra", "MacroTools", "StaticArrays"]
-git-tree-sha1 = "f6def2c9c88908fdde81b9a39c236cf69de94450"
+git-tree-sha1 = "5e04374019448f8509349948ab504f117e3b575a"
 uuid = "2ee39098-c373-598a-b85f-a56591580800"
-version = "1.2.2"
+version = "1.3.0"
 
 [[Latexify]]
 deps = ["Formatting", "InteractiveUtils", "LaTeXStrings", "MacroTools", "Markdown", "Printf", "Requires"]
@@ -555,9 +555,9 @@ uuid = "a63ad114-7e13-5084-954f-fe012c677804"
 
 [[ModelingToolkit]]
 deps = ["ArrayInterface", "DataStructures", "DiffEqBase", "DiffEqJump", "DiffRules", "Distributed", "DocStringExtensions", "GeneralizedGenerated", "LabelledArrays", "Latexify", "LightGraphs", "LinearAlgebra", "MacroTools", "NaNMath", "RecursiveArrayTools", "Requires", "SafeTestsets", "SparseArrays", "SpecialFunctions", "StaticArrays", "SymbolicUtils", "TreeViews", "UnPack", "Unitful"]
-git-tree-sha1 = "45e7a6a15152447739dde9e88048bc02d93413c6"
+git-tree-sha1 = "c386225554d6574f5370f81edeb3a3458747a377"
 uuid = "961ee093-0014-501f-94e3-6117800e7a78"
-version = "3.12.1"
+version = "3.12.2"
 
 [[MuladdMacro]]
 git-tree-sha1 = "c6190f9a7fc5d9d5915ab29f2134421b12d24a68"
@@ -811,9 +811,9 @@ version = "0.2.2+1"
 
 [[Roots]]
 deps = ["Printf"]
-git-tree-sha1 = "c2f7348c55d1433d1cab0159b4d2c6d27af36fc4"
+git-tree-sha1 = "7bd9d7eee602f0413f24c394386a18cb0d515f36"
 uuid = "f2b01f46-fcfa-551c-844a-d8ac1e96c665"
-version = "1.0.2"
+version = "1.0.3"
 
 [[SHA]]
 uuid = "ea8e919c-243c-51af-8825-aaa63cd721ce"
@@ -826,9 +826,9 @@ version = "0.8.13"
 
 [[SLEEFPirates]]
 deps = ["Libdl", "SIMDPirates", "VectorizationBase"]
-git-tree-sha1 = "741a02ed9df3ef9eb36a99e555fec505057548c9"
+git-tree-sha1 = "c750d618b7c8268a97e55c70e8c88e56080d30fa"
 uuid = "476501e8-09a2-5ece-8869-fb82de89a1fa"
-version = "0.5.3"
+version = "0.5.4"
 
 [[SafeTestsets]]
 deps = ["Test"]
@@ -870,9 +870,9 @@ uuid = "2f01184e-e22b-5df5-ae63-d93ebab69eaf"
 
 [[SparseDiffTools]]
 deps = ["Adapt", "ArrayInterface", "Compat", "DataStructures", "FiniteDiff", "ForwardDiff", "LightGraphs", "LinearAlgebra", "Requires", "SparseArrays", "VertexSafeGraphs"]
-git-tree-sha1 = "567fd5758c8271b81cb6497f1bddf1a2d0dd09af"
+git-tree-sha1 = "93666e93899d995ec37abddde4811f533e49c074"
 uuid = "47a9eef4-7e08-11e9-0b38-333d64bd3804"
-version = "1.9.0"
+version = "1.9.1"
 
 [[SpecialFunctions]]
 deps = ["OpenSpecFun_jll"]
@@ -944,9 +944,9 @@ version = "5.2.0+0"
 
 [[SymbolicUtils]]
 deps = ["AbstractAlgebra", "Combinatorics", "DataStructures", "NaNMath", "SpecialFunctions", "TimerOutputs"]
-git-tree-sha1 = "2b71a786e7a830c81bbaccda77bab81f6d70fb15"
+git-tree-sha1 = "632421391f07c5412dcec733f26d681d0de0768e"
 uuid = "d1185830-fcd6-423d-90d6-eec64667417b"
-version = "0.4.2"
+version = "0.4.3"
 
 [[TableTraits]]
 deps = ["IteratorInterfaceExtensions"]

@@ -15,17 +15,17 @@ interface IState {
 const apiUrl = "http://localhost:8009"
 
 interface ISimulationResult {
+    time: number[]
     magnetization: number[];
     velocity: number[];
     displacement: number[];
     irreversibleMagentization: number[];
-    endTime: number
 }
 
 export default class Plots extends React.Component {
 
     public readonly state: IState = {
-        result: { magnetization: [], velocity: [], displacement: [], irreversibleMagentization: [], endTime: 1 },
+        result: { time: [], magnetization: [], velocity: [], displacement: [], irreversibleMagentization: [] },
         simulationRunning: false,
         params: {},
 
@@ -49,32 +49,6 @@ export default class Plots extends React.Component {
         })
         currentParams.val = event.target.value
         this.setState({ params: this.state.params })
-    }
-    fetchXAxis() {
-        const axis: number[] = []
-        var i = 0
-        const length = this.state.result.magnetization.length
-        const halfLength = length / 2
-        var dis = this.state.result.endTime / length
-        var double = dis * 1.5
-        var half = dis / 2
-        for (i; i < length; i++) {
-            //These if statements will emphasize the change that happens in the returned data, not the stable line that takes up most of the graph
-            //you would think this would lead to inaccuracy, but end time doesnt change graph shape at all on current simulator
-            //will just show the same line, willl take 40 seconds to complete or 2, will be the same
-            if (i > halfLength) {
-                axis.push(double + axis[i - 1])
-            }
-            if (i <= halfLength) {
-                if (i > 0) {
-                    axis.push(half + axis[i - 1])
-                }
-                else {
-                    axis.push(half)
-                }
-            }
-        }
-        return axis
     }
     public render() {
         const paramsComponents = this.getParams(this.state.params, [])
@@ -111,7 +85,7 @@ export default class Plots extends React.Component {
                     <Plot
                         data={[
                             {
-                                x: this.fetchXAxis(),
+                                x: this.state.result.time,
                                 y: this.state.result.velocity,
                                 type: 'scatter',
                                 mode: 'lines',
@@ -122,8 +96,8 @@ export default class Plots extends React.Component {
                             title: 'velocity',
                             xaxis: { title: "Time (seconds)" },
                             yaxis: { title: "m/s" },
-                            width: 500,
-                            height: 300,
+                            width: 600,
+                            height: 400,
                             plot_bgcolor: "#F8F8F8"
 
 
@@ -132,7 +106,7 @@ export default class Plots extends React.Component {
                     <Plot
                         data={[
                             {
-                                x: this.fetchXAxis(),
+                                x: this.state.result.time,
                                 y: this.state.result.magnetization,
                                 type: 'scatter',
                                 mode: 'lines',
@@ -143,8 +117,8 @@ export default class Plots extends React.Component {
                             title: 'Magnetization',
                             xaxis: { title: "Time (seconds)" },
                             yaxis: { title: "[A/m]" },
-                            width: 500,
-                            height: 300,
+                            width: 600,
+                            height: 400,
                             plot_bgcolor: "#F8F8F8"
 
 
@@ -155,7 +129,7 @@ export default class Plots extends React.Component {
                     <Plot
                         data={[
                             {
-                                x: this.fetchXAxis(),
+                                x: this.state.result.time,
                                 y: this.state.result.irreversibleMagentization,
                                 type: 'scatter',
                                 mode: 'lines',
@@ -166,8 +140,8 @@ export default class Plots extends React.Component {
                             title: 'Irriversible Magnetization',
                             xaxis: { title: "Time (seconds)" },
                             yaxis: { title: "[A/m]" },
-                            width: 500,
-                            height: 300,
+                            width: 600,
+                            height: 400,
                             plot_bgcolor: "#F8F8F8"
 
 
@@ -175,7 +149,7 @@ export default class Plots extends React.Component {
                     <Plot
                         data={[
                             {
-                                x: this.fetchXAxis(),
+                                x: this.state.result.time,
                                 y: this.state.result.displacement,
                                 type: 'scatter',
                                 mode: 'lines',
@@ -186,8 +160,8 @@ export default class Plots extends React.Component {
                             title: 'Displacement',
                             xaxis: { title: "Time (seconds)" },
                             yaxis: { title: "m" },
-                            width: 500,
-                            height: 300,
+                            width: 600,
+                            height: 400,
                             plot_bgcolor: "#F8F8F8"
 
 

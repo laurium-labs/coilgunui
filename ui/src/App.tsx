@@ -11,7 +11,7 @@ function App() {
       <div className="App">
         <header className="App-header">
           <Text style={{ fontSize: 45, color: 'white' }}>Coil Gun Simulator</Text>
-          <Text style={{ fontSize: 18, color: 'white' }} >The less coils the faster the simulation, and parameters may take a second to load</Text>
+          <Text style={{ fontSize: 18, color: 'white' }} >The less coils the faster the simulation, parameters may take a second to load</Text>
           <div style={{ alignContent: 'center', flexDirection: 'row' }}>
             <div style={{ flexDirection: 'row' }}>
               <Plots />
