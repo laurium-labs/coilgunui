@@ -88,7 +88,7 @@ version = "0.8.1"
 
 [[CoilGun]]
 deps = ["DifferentialEquations", "ForwardDiff", "JSON", "Plots", "PyPlot", "Revise", "Test", "Unitful"]
-git-tree-sha1 = "85556a1d4aa5138332bd55c2289144b43ba4a8b9"
+git-tree-sha1 = "8607b5c9ce889f2f3b8a61f9b7470ba888b3f6d1"
 repo-rev = "master"
 repo-url = "https://github.com/laurium-labs/CoilGun.jl"
 uuid = "d464fd6c-b65a-46b1-9011-1ed7c42571a3"
@@ -502,9 +502,9 @@ version = "0.4.1"
 
 [[LoopVectorization]]
 deps = ["DocStringExtensions", "LinearAlgebra", "OffsetArrays", "SIMDPirates", "SLEEFPirates", "UnPack", "VectorizationBase"]
-git-tree-sha1 = "441fe8ec2e5af31be10f3c1d0b2ee6966d997540"
+git-tree-sha1 = "147011570b80b06bc6de152146f55340fb080fb5"
 uuid = "bdcacae8-1622-11e9-2a5c-532679323890"
-version = "0.8.11"
+version = "0.8.12"
 
 [[METIS_jll]]
 deps = ["Libdl", "Pkg"]
@@ -555,9 +555,9 @@ uuid = "a63ad114-7e13-5084-954f-fe012c677804"
 
 [[ModelingToolkit]]
 deps = ["ArrayInterface", "DataStructures", "DiffEqBase", "DiffEqJump", "DiffRules", "Distributed", "DocStringExtensions", "GeneralizedGenerated", "LabelledArrays", "Latexify", "LightGraphs", "LinearAlgebra", "MacroTools", "NaNMath", "RecursiveArrayTools", "Requires", "SafeTestsets", "SparseArrays", "SpecialFunctions", "StaticArrays", "SymbolicUtils", "TreeViews", "UnPack", "Unitful"]
-git-tree-sha1 = "c386225554d6574f5370f81edeb3a3458747a377"
+git-tree-sha1 = "85e82aa93668c60e889ce300742aff2363c2a64c"
 uuid = "961ee093-0014-501f-94e3-6117800e7a78"
-version = "3.12.2"
+version = "3.13.0"
 
 [[MuladdMacro]]
 git-tree-sha1 = "c6190f9a7fc5d9d5915ab29f2134421b12d24a68"

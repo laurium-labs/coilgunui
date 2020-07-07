@@ -3,7 +3,7 @@ import * as React from 'react';
 import './App.css';
 import Plot from 'react-plotly.js';
 import { Typography, Button } from 'antd'
-import { ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, Link } from '@material-ui/core';
+import { ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, Link, Grid } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import LoadingSpin from './LoadingSpin';
 const { Text } = Typography
@@ -170,13 +170,29 @@ export default class Plots extends React.Component {
             </div>
         </>
     }
-
-
+    private correctHeader(str: string) {
+        if (str === "coil") {
+            return "Coil"
+        }
+        else if (str === "magnetic") {
+            return "Magentic"
+        }
+        else if (str === "physical") {
+            return "Projectile"
+        }
+        else if (str === "barrel") {
+            return "Barrel"
+        }
+        else {
+            return str
+        }
+    }
     private getParams(params: any, path: string[]) {
         var idCount = 0
         return <React.Fragment key={path.join(".")}>
             <div>
-                {path.length > 0 && <h4 style={{ textAlign: 'center' }}>{(path[path.length - 1] !== "ip") && path[path.length - 1]}</h4>}
+                {/* bold headers here, map to more readable values */}
+                {path.length > 0 && <h4 style={{ textAlign: 'center' }}>{(path[path.length - 1] !== "ip") && this.correctHeader(path[path.length - 1])}</h4>}
                 {
                     Object.keys(params)
                         .filter(k => Object.keys(params[k]).length > 0)
@@ -195,9 +211,21 @@ export default class Plots extends React.Component {
                             newPath.push(k)
                             const onChange = (event: any) => this.paramChanged(event, newPath)
                             if (this.isUnit(params[k])) {
-                                return <div className="ParamRow" key={newPath.join(".")} style={{ textAlign: 'right', alignContent: 'center', paddingTop: 2, width: '80%' }} >
-                                    <label style={{ fontSize: 17 }} htmlFor={path.join(".") + idCount}>{k}({params[k].unit})</label>
-                                    <input style={{ fontSize: 15 }} id={path.join(".") + idCount} value={params[k].val} className="Param" onChange={onChange} ></input>
+                                var unit = "(" + params[k].unit + ")" //no () by number of coils, only where units exist
+                                return <div className="ParamRow" key={newPath.join(".")} style={{ textAlign: 'right', alignContent: 'center' }}  >
+                                    <Grid
+                                        container
+                                        direction="row"
+                                        justify="space-evenly"
+                                        alignItems="center"
+                                    >
+                                        <Grid xs={6} alignItems='center'>
+                                            <label style={{ fontSize: 17, verticalAlign: 'center' }} htmlFor={path.join(".") + idCount}>{k}{params[k].unit && unit}</label>
+                                        </Grid>
+                                        <Grid>
+                                            <input style={{ fontSize: 15, verticalAlign: 'center' }} id={path.join(".") + idCount} value={params[k].val} className="Param" onChange={onChange} ></input>
+                                        </Grid>
+                                    </Grid>
                                 </div>
                             } else {
                                 return this.getParams(params[k], newPath)
