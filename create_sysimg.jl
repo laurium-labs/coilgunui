@@ -1,5 +1,6 @@
 using Pkg
 Pkg.add(PackageSpec(url="https://github.com/laurium-labs/CoilGun.jl"))
+Pkg.add("PackageCompiler")
 
 using PackageCompiler
 
