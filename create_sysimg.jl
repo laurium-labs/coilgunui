@@ -4,4 +4,4 @@ Pkg.add("PackageCompiler")
 
 using PackageCompiler
 
-create_sysimage([:CoilGun]; precompile_execution_file="precompile_coilgun.jl", sysimage_path="sys_coilgunner.so")
+create_sysimage([:CoilGun]; precompile_execution_file="./precompile_coilgun.jl", sysimage_path="sys_coilgunner.so")
