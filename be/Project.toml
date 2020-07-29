@@ -1,4 +1,5 @@
 [deps]
+BinaryBuilder = "12aac903-9f7c-5d81-afc2-d9565ea332ae"
 CoilGun = "d464fd6c-b65a-46b1-9011-1ed7c42571a3"
 HTTP = "cd3eb016-35fb-5094-929b-558a96fad6f3"
 JSON = "682c06a0-de6a-54ab-a142-c8b1cf79cde6"

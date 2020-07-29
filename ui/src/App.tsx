@@ -10,13 +10,14 @@ function App() {
     <div className="App">
       <div className="App">
         <header className="App-header">
-          <Text style={{ fontSize: 45, color: 'white' }}>Coil Gun Simulator</Text>
-          <Text style={{ fontSize: 18, color: 'white' }} >The less coils the faster the simulation, parameters may take a second to load</Text>
+          <Text style={{ fontSize: 45, color: 'white', marginTop: 30, marginBottom: 0 }}>Coil Gun Simulator</Text>
+          <Text style={{ fontSize: 18, color: 'white', marginBottom: 40 }}>Brought to you by Laurium Labs</Text>
+
           <div style={{ alignContent: 'center', flexDirection: 'row' }}>
             <div style={{ flexDirection: 'row' }}>
               <Plots />
             </div>
-            <Typography style={{ paddingTop: 15, color: 'white' }}>Read about the coil gun simulator <Link
+            <Typography style={{ paddingTop: 100, paddingBottom: 100, color: 'white' }}>Read about the coil gun simulator <Link
               href={"https://github.com/laurium-labs/CoilGun.jl"}
               target="_blank"
             >
@@ -30,16 +31,5 @@ function App() {
 
   );
 }
-// class App extends React.Component {
-//   public render() {
-//     return (<div className="App">
-//       <header className="App-header">
-//         <Text style={{ color: "white", paddingBottom: 10 }}>CoilGun</Text>
-//         {Main}
-//       </header>
-//     </div>
-//     );
-//   }
-// }
 
 export default App;

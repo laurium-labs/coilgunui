@@ -12,6 +12,7 @@ interface IState {
     simulationRunning: boolean | undefined;
     params: any,
 }
+
 const apiUrl = "http://localhost:8009"
 
 interface ISimulationResult {
@@ -61,6 +62,8 @@ export default class Plots extends React.Component {
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
                         <div className="Params">
+                            <Text style={{ fontSize: 18 }} >The less coils the faster the simulation, parameters may take a second to load</Text>
+
                             <div className="ParamsContainer" style={{ flexDirection: 'row' }}>
                                 {paramsComponents}
                             </div>
@@ -79,7 +82,7 @@ export default class Plots extends React.Component {
                         <LoadingSpin />
                     </>
                     }
-                    {!this.state.simulationRunning && <Button disabled={this.state.simulationRunning} onClick={this.runSimulationClicked} style={{ margin: 10, color: 'black' }}>Run Simulation</Button>}
+                    {!this.state.simulationRunning && <Button type="primary" disabled={this.state.simulationRunning} onClick={this.runSimulationClicked} style={{ margin: 20, color: 'white' }}>Run Simulation</Button>}
                 </div>
                 <div>
                     <Plot
