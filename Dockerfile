@@ -4,6 +4,8 @@ COPY precompile_coilgunner .
 
 COPY create_sysimg.jl .
 
+COPY precompile_coilgun.jl .
+
 COPY be .
 
 RUN apt-get update && apt-get install -y gcc g++ && rm -rf /var/lib/apt/lists/*
