@@ -13,7 +13,9 @@ interface IState {
     params: any,
 }
 
-const apiUrl = "http://localhost:8009"
+// const apiUrl = "http://localhost:8009"
+
+const apiUrl = "https://quiet-beach-96378.herokuapp.com"
 
 interface ISimulationResult {
     time: number[]
