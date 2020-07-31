@@ -3,6 +3,9 @@ const app = express()
 const port = process.env.PORT || 3000
 
 var request = require('request');
+var cors = require('cors')
+
+app.use(cors())
 
 app.use('/', function (req, res) {
     var url = "http://34.237.210.243" + req.url;
