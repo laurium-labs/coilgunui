@@ -1,0 +1,5 @@
+FROM julia
+
+COPY be .
+
+CMD julia --project="./be" -e 'using Pkg; Pkg.instantiate(); include("./src/server.jl")'
