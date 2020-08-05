@@ -11,6 +11,7 @@ interface IState {
     result: ISimulationResult;
     simulationRunning: boolean | undefined;
     params: any,
+    errorMessage: string
 }
 
 // const apiUrl = "http://localhost:8009"
@@ -31,6 +32,7 @@ export default class Plots extends React.Component {
         result: { time: [], magnetization: [], velocity: [], displacement: [], irreversibleMagentization: [] },
         simulationRunning: false,
         params: {},
+        errorMessage: ''
 
     }
     public async componentDidMount() {
@@ -47,12 +49,14 @@ export default class Plots extends React.Component {
 
     private paramChanged(event: any, path: string[]) {
         let currentParams = this.state.params
+
         path.forEach(k => {
             currentParams = currentParams[k]
         })
         currentParams.val = event.target.value
         this.setState({ params: this.state.params })
     }
+
     public render() {
         const paramsComponents = this.getParams(this.state.params, [])
 
@@ -78,6 +82,11 @@ export default class Plots extends React.Component {
                         </div >
                     </ExpansionPanelDetails>
                 </ExpansionPanel>
+
+                {
+                    this.state.errorMessage && <p style={{ color: '#ff6666' }}>{this.state.errorMessage}</p>
+                }
+
                 <div>
                     {this.state.simulationRunning && <>
                         <Text style={{ fontSize: '12', color: 'white' }}>Processing</Text>
@@ -291,6 +300,15 @@ export default class Plots extends React.Component {
         return result
     }
     private runSimulationClicked = async () => {
+
+
+        if (parseInt(this.state.params['numberOfCoils']['val']) > 4) {
+            this.setState({ errorMessage: 'Error: Cannot have more than 4 coils as it taxes our server too much! Please clone from GitHub and run locally!' })
+            return
+        }
+
+        this.setState({ errorMessage: '' })
+
         this.setState({ simulationRunning: true })
         const urlParams = this.paramsToUrl()
 
